@@ -1,5 +1,4 @@
 
-```markdown
 # Smart Safe with Password Protection
 
 ## Overview
