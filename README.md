@@ -16,6 +16,7 @@ Smart Safe with Password Protection is an advanced security system designed to p
 - MPLAB IDE for programming the microcontroller
 - Proteus for simulation
 
+
 ### Installation
 1. Clone the repository:
    ```sh
