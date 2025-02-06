@@ -34,8 +34,10 @@ Smart Safe with Password Protection is an advanced security system designed to p
 ## Usage
 1. Power on the safe.
 2. Enter the password using the keypad.
-3. If the password is correct, the safe will unlock. If incorrect, it will remain locked.
-4. Use the reset button to change the password.
+3. If the password is correct, the safe will unlock.
+4. If the password is incorrect, the safe will remain locked. After three failed attempts, an email alert with a photo of the person attempting access will be sent to the owner.
+   
+
 
 ## Project Structure
 - **Micro_PIC_Project**: Contains the Proteus simulation files and microcontroller code.
