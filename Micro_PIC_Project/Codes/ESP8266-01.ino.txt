@@ -1,0 +1,52 @@
+#include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
+#include "GoogleFormPost.h"
+
+const char* ssid = "EYAD";
+const char* password = "aaaaaaaa";
+
+const char* FORM_ROOT_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdh8Fp3V8mxDkDGbIUov_9xKUrKn_0zcZFZZxuYiKhnVe9DBA/formResponse";
+
+bool dataSent = false; // Flag to track if data has been sent to the Google Form
+
+void setup() {
+  Serial.begin(9600);
+  WiFi.begin(ssid, password);
+
+  Serial.print("Connecting to WiFi network: ");
+  Serial.println(ssid);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("Connected to the WiFi network");
+}
+
+void loop() {
+  if (Serial.available() > 0 && !dataSent) {
+    // Read data from UART
+    String uartData = "";
+    while (Serial.available()) {
+      uartData += char(Serial.read());
+    }
+
+    // Check if data is not empty before adding
+    if (!uartData.isEmpty()) {
+      GoogleFormPost gf;
+      gf.setDebugMode(true);
+      gf.setFormUrl(String(FORM_ROOT_URL));
+  
+      // Add data read from UART
+      gf.addData(uartData);
+  
+      gf.showDebug();
+      gf.send();
+      dataSent = true; // Set flag to indicate data has been sent
+    }
+  }
+  // Reset flag when new UART data is available
+  if (Serial.available() == 0 && dataSent) {
+    dataSent = false;
+  }
+}
